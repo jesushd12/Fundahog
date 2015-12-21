@@ -19,6 +19,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DataBaseManager.TABLA_USUARIO);
         db.execSQL(DataBaseManager.TABLA_MEDICO);
+        db.execSQL(DataBaseManager.TABLA_TRATAMIENTO);
+        db.execSQL(DataBaseManager.TABLA_NOTAS);
 
     }
 

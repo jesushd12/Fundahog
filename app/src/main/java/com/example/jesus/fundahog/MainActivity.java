@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
@@ -32,20 +34,32 @@ public class MainActivity extends AppCompatActivity
             //Iniciamos la nueva actividad
 
             startActivityForResult(intent,3);
+        }else {
+
+
+            DataBaseManager DB = new DataBaseManager(this);
+            setContentView(R.layout.activity_main);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+
+
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawer.setDrawerListener(toggle);
+            toggle.syncState();
+
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            TextView nombreUsuarioHeader = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nombreUsuarioHeader);
+            //nombreUsuarioHeader.setText("Diosa");
+            //nombreUsuarioHeader.setText(DB.consultarDatosPaciente().getNombre());
+            navigationView.setNavigationItemSelectedListener(this);
+
+            navigationView.setCheckedItem(R.id.home);
+
+            FragmentManager fm = getSupportFragmentManager();
+            fm.beginTransaction().replace(R.id.contain_frame, new MainFragment()).commit();
         }
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -83,12 +97,16 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
+        FragmentManager fm = getSupportFragmentManager();
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.informacion_personal) {
+            fm.beginTransaction().replace(R.id.contain_frame,new PacientInformationFragment()).commit();
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
+
 
         } else if (id == R.id.nav_slideshow) {
 
@@ -98,6 +116,15 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
+        }else if (id == R.id.treatment) {
+
+
+
+            fm.beginTransaction().replace(R.id.contain_frame,new TreatmentFragment()).commit();
+        }
+        else if (id == R.id.home) {
+
+            fm.beginTransaction().replace(R.id.contain_frame,new MainFragment()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

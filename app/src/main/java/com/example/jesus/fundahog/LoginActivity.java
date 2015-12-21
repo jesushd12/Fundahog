@@ -3,6 +3,7 @@ package com.example.jesus.fundahog;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.DatePickerDialog;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -26,10 +27,13 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -59,18 +63,55 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     // UI references.
     private AutoCompleteTextView nombreUsuario;
     private EditText mPasswordView;
+    Pacient paciente;
+    EditText nombre;
+    EditText apellidoUsuario;
+    EditText cedulaUsuario;
+    EditText sexoUsuario;
+    EditText fechaNacimientoUsuario;
+    EditText lugarNacimientoUsuario;
+    AutoCompleteTextView emailUsuario;
+    EditText contrasenaUsuario;
+    EditText tlfContactoUsuario;
+    EditText tlfContactoUsuario2;
+    EditText nroHistoriaUsuario;
+    final SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+    DatePickerDialog.OnDateSetListener d;
+    Calendar calendar = Calendar.getInstance();
     private View mProgressView;
     private View mLoginFormView;
+    DataBaseManager DB;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
-        nombreUsuario = (AutoCompleteTextView) findViewById(R.id.email);
+        DB = new DataBaseManager(this);
+
+        nombre = (EditText)findViewById(R.id.edt_nombre);
+        apellidoUsuario = (EditText)findViewById(R.id.edt_apellido);
+        cedulaUsuario = (EditText)findViewById(R.id.edt_cedula);
+        sexoUsuario = (EditText)findViewById(R.id.edt_sexo);
+        fechaNacimientoUsuario = (EditText)findViewById(R.id.edt_fechaNacimiento);
+        fechaNacimientoUsuario.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        lugarNacimientoUsuario = (EditText)findViewById(R.id.edt_lugarNacimiento);
+        //emailUsuario = (AutoCompleteTextView)findViewById(R.id.emailUsuario);
+        //contrasenaUsuario = (EditText)findViewById(R.id.edt_password);
+        tlfContactoUsuario = (EditText)findViewById(R.id.edt_tlfContacto);
+        tlfContactoUsuario2 = (EditText)findViewById(R.id.edt_tlfContacto2);
+        nroHistoriaUsuario  = (EditText)findViewById(R.id.edt_nroHistoria);
+
+        nombreUsuario = (AutoCompleteTextView) findViewById(R.id.emailUsuario);
         populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView = (EditText) findViewById(R.id.edt_password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -81,12 +122,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
         });
+        d= new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, monthOfYear);
+                calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                update();
+            }
+        };
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
+                paciente = new Pacient(nombre.getText().toString(),apellidoUsuario.getText().toString(),cedulaUsuario.getText().toString(),calendar.getTime(),lugarNacimientoUsuario.getText().toString(),sexoUsuario.getText().toString(),nombreUsuario.getText().toString(),tlfContactoUsuario.getText().toString(),tlfContactoUsuario2.getText().toString(),nroHistoriaUsuario.getText().toString(),mPasswordView.getText().toString());
+
+                DB.insertarUsuario2(paciente);
                 setResult(2);
                 finish();
             }
@@ -347,6 +400,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
         }
+    }
+
+    public void update (){
+        fechaNacimientoUsuario.setText(formatter.format(calendar.getTime()));
+    }
+    public void setDate(){
+        new DatePickerDialog(LoginActivity.this,d,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 }
 

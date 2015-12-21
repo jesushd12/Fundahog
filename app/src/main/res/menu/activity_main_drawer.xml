@@ -3,7 +3,11 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/home"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Principal" />
+        <item
+            android:id="@+id/informacion_personal"
             android:icon="@drawable/ic_menu_camera"
             android:title="Informacion Personal" />
         <item
@@ -18,9 +22,13 @@
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_send"
             android:title="Mis alergias" />
+        <item
+            android:id="@+id/treatment"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Mis Tratamientos" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Informacion Adicional">
         <menu>
             <item
                 android:id="@+id/nav_share"

@@ -10,91 +10,15 @@
     tools:context="com.example.jesus.fundahog.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-
-    <LinearLayout
-        android:orientation="horizontal"
+    <FrameLayout
+        android:id="@+id/contain_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="4dp"
-            android:layout_marginRight="2dp"
-            android:layout_marginBottom="2dp">
+    </FrameLayout>
 
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/imageButton"
-                android:scaleType="fitCenter"
-                android:background="#4DE0EE"
-                android:src="@drawable/ic_calendario"
-                android:textAlignment="center" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="4dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginBottom="2dp">
 
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/imageButton2"
-                android:background="#8A52B1"
-                android:src="@drawable/ic_diario"
-                android:scaleType="fitCenter" />
-        </LinearLayout>
-    </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="2dp"
-            android:layout_marginRight="2dp"
-            android:layout_marginBottom="4dp">
-
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/imageButton3"
-                android:background="#00B49B"
-                android:src="@drawable/ic_examenes"
-                android:scaleType="fitCenter" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="2dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="4dp">
-
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/imageButton4"
-                android:background="#F74281"
-                android:src="@drawable/ic_pregunta"
-                android:scaleType="fitCenter" />
-        </LinearLayout>
-    </LinearLayout>
 
 
 </LinearLayout>
