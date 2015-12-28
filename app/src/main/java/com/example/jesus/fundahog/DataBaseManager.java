@@ -56,6 +56,18 @@ public class DataBaseManager {
             + "titulo " + " varchar (25) not null, "
             + "nota " + " text  );" ;
 
+    /*Tabla de examenes*/
+    public static final  String TABLA_HEMATOLOGIA = " create table hematologia ( "
+            + "_id " + "  integer primary key autoincrement,  "
+            + "fecha " + " date not null, "
+            + "fibrinogeno " + " real , "
+            + "leucocitos " + " real , "
+            + "hemoglobina " + " real , "
+            + "hematocrito " + " real , "
+            + "plaqueta " + " real , "
+            + "vsg " + " real , "
+            + "hcm " + " real  );" ;
+
 
     private  DataBaseHelper helper;
     private SQLiteDatabase db;
@@ -334,5 +346,111 @@ public class DataBaseManager {
         db.update("nota",args,"_id=?",campo);
 
     }
+
+
+    /* Insertar nueva Hematologia
+     */
+    public void insertarHematologia(Examen.Hematologia hematologia)
+    {
+        ContentValues valores = new ContentValues();
+        valores.put("fecha",formatter.format(hematologia.getFechaExamen()));
+        valores.put("fibrinogeno",hematologia.getFibrinogeno());
+        valores.put("leucocitos",hematologia.getFibrinogeno());
+        valores.put("hemoglobina",hematologia.getHemoglobina());
+        valores.put("hematocrito",hematologia.getHematocrito());
+        valores.put("plaqueta",hematologia.getPlaquetas());
+        valores.put("vsg",hematologia.getVsg());
+        valores.put("hcm",hematologia.getVsg());
+
+        db.insert("hematologia",null,valores);
+
+    }
+
+    /*
+    * */
+    public ArrayList<Examen.Hematologia> consultarHematologia(){
+        ArrayList<Examen.Hematologia> hematologia = new ArrayList<Examen.Hematologia>();
+        String[] campos = {"_id","fecha","fibrinogeno","leucocitos","hemoglobina","hematocrito","plaqueta","vsg","hcm"};
+        Cursor c = db.query("hematologia",campos,null,null,null,null,null);
+        Calendar calendar = Calendar.getInstance();
+        if(c.moveToFirst()){
+
+            do{
+                try {
+                    calendar.setTime(formatter.parse(c.getString(1)));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                Examen.Hematologia hematologiaInd = null;
+                try {
+                    hematologiaInd = new Examen().new Hematologia(formatter.parse(c.getString(1)),c.getFloat(2),c.getFloat(3),c.getFloat(4),c.getFloat(5),c.getFloat(6),c.getFloat(7),c.getFloat(8));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                hematologiaInd.setIdExamen(c.getInt(0));
+                hematologia.add(hematologiaInd);
+            }while(c.moveToNext());
+            return hematologia;
+        }
+
+        Examen.Hematologia  hematologiaInd = new Examen().new Hematologia(calendar.getTime(),2,3,4,5,6,7,8);
+
+        hematologia.add(hematologiaInd);
+        return hematologia;
+
+    }
+
+    public Examen.Hematologia consultarHematologiaEspecifica(int id){
+        ArrayList<Examen.Hematologia> hematologia = new ArrayList<Examen.Hematologia>();
+        Examen.Hematologia hematologiaInd;
+        String[] campos = {"_id","fecha","fibrinogeno","leucocitos","hemoglobina","hematocrito","plaqueta","vsg","hcm"};
+        String[] args = {Integer.toString(id)};
+        Cursor c = db.query("hematologia",campos,"_id=?",args,null,null,null);
+        Calendar calendar = Calendar.getInstance();
+        if(c.moveToFirst()){
+
+            do{
+                try {
+                    calendar.setTime(formatter.parse(c.getString(1)));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                hematologiaInd = new Examen().new Hematologia(calendar.getTime(),c.getFloat(2),c.getFloat(3),c.getFloat(4),c.getFloat(5),c.getFloat(6),c.getFloat(7),c.getFloat(8));
+                hematologiaInd.setIdExamen(c.getInt(0));
+            }while(c.moveToNext());
+            return hematologiaInd ;
+        }
+
+
+
+        return null;
+
+    }
+
+    public void actualizarHematologia(Examen.Hematologia hematologia,int id)
+    {
+        ContentValues valores = new ContentValues();
+        String[] args = {Integer.toString(id)};
+        valores.put("fecha",formatter.format(hematologia.getFechaExamen()));
+        valores.put("fibrinogeno",hematologia.getFibrinogeno());
+        valores.put("leucocitos",hematologia.getFibrinogeno());
+        valores.put("hemoglobina",hematologia.getHemoglobina());
+        valores.put("hematocrito",hematologia.getHematocrito());
+        valores.put("plaqueta",hematologia.getPlaquetas());
+        valores.put("vsg",hematologia.getVsg());
+        valores.put("hcm",hematologia.getVsg());
+
+        db.update("hematologia",valores,"_id=?",args);
+
+    }
+    public void eliminarHematologia(int id)
+    {
+        String[] args = {Integer.toString(id)};
+        db.delete("hematologia","_id=?",args);
+
+    }
+
 
 }

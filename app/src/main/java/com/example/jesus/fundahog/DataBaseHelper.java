@@ -21,7 +21,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(DataBaseManager.TABLA_MEDICO);
         db.execSQL(DataBaseManager.TABLA_TRATAMIENTO);
         db.execSQL(DataBaseManager.TABLA_NOTAS);
+        db.execSQL(DataBaseManager.TABLA_HEMATOLOGIA);
 
+    }
+
+    @Override
+    public void onConfigure(SQLiteDatabase db) {
+        super.onConfigure(db);
     }
 
     @Override

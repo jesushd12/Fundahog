@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 /**
  * Created by Jesus on 12/17/2015.
@@ -17,6 +18,7 @@ import android.widget.ImageButton;
 public class MainFragment extends Fragment{
     ImageButton botonTratamiento ;
     ImageButton botonNotas;
+    ImageButton botonExamen;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,6 +40,15 @@ public class MainFragment extends Fragment{
             public void onClick(View v) {
                 FragmentManager fm = getFragmentManager();
                 fm.beginTransaction().replace(R.id.contain_frame,new NoteFragment()).addToBackStack( "tag" ).commit();
+            }
+        });
+        botonExamen = (ImageButton) v.findViewById(R.id.btn_examen);
+        botonExamen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                fm.beginTransaction().replace(R.id.contain_frame,new ExamenFragment()).addToBackStack( "tag" ).commit();
+
             }
         });
 
