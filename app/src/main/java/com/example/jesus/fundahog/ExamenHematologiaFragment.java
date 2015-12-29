@@ -150,6 +150,7 @@ public class ExamenHematologiaFragment extends Fragment {
             }
         if (id == R.id.action_delete) {
             DB.eliminarHematologia(idExamen);
+            onDestroy();
             getActivity().onBackPressed();
             return true;
         }
