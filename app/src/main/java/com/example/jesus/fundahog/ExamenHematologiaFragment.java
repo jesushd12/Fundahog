@@ -114,13 +114,16 @@ public class ExamenHematologiaFragment extends Fragment {
                     e.printStackTrace();
                 }
                 getActivity().onBackPressed();
-                return true;
 
             }else {
                 hematologia = new Examen().new Hematologia(c.getTime(), Float.parseFloat(fibrinogeno.getText().toString()), Float.parseFloat(leucocitos.getText().toString()), Float.parseFloat(hemoglobina.getText().toString()), Float.parseFloat(hematocrito.getText().toString()), Float.parseFloat(plaquetas.getText().toString()), Float.parseFloat(vsg.getText().toString()), Float.parseFloat(hcm.getText().toString()));
                 DB.insertarHematologia(hematologia);
-                getActivity().onBackPressed();
+                FragmentManager fm = getFragmentManager();
+                fm.beginTransaction().replace(R.id.contain_frame,new ExamenFragment()).commit();
+
             }
+
+
 
             return true;
         }
