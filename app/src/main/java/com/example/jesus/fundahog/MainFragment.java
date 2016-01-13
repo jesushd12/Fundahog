@@ -13,12 +13,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 /**
- * Created by Jesus on 12/17/2015.
+ * Created by Vicky on 13/01/2016.
  */
 public class MainFragment extends Fragment{
     ImageButton botonTratamiento ;
     ImageButton botonNotas;
     ImageButton botonExamen;
+    ImageButton botonHelp;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -31,7 +32,7 @@ public class MainFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getFragmentManager();
-                fm.beginTransaction().replace(R.id.contain_frame,new TreatmentFragment()).addToBackStack( "tag" ).commit();
+                fm.beginTransaction().replace(R.id.contain_frame, new TreatmentFragment()).addToBackStack("tag").commit();
             }
         });
         botonNotas = (ImageButton)v.findViewById(R.id.boton_notas);
@@ -48,6 +49,15 @@ public class MainFragment extends Fragment{
             public void onClick(View v) {
                 FragmentManager fm = getFragmentManager();
                 fm.beginTransaction().replace(R.id.contain_frame,new ExamenFragment()).addToBackStack( "tag" ).commit();
+
+            }
+        });
+        botonHelp = (ImageButton) v.findViewById(R.id.btn_help);
+        botonHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                fm.beginTransaction().replace(R.id.contain_frame,new HelpFragment()).addToBackStack( "tag" ).commit();
 
             }
         });

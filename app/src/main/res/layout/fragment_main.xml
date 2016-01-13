@@ -85,7 +85,7 @@
                 <ImageButton
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/imageButton4"
+                    android:id="@+id/btn_help"
                     android:background="#F74281"
                     android:src="@drawable/ic_pregunta"
                     android:scaleType="fitCenter" />
