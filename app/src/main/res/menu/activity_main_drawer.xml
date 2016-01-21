@@ -11,17 +11,14 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="Informacion Personal" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/mi_medico"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Mi medico" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Historia de usuario" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_send"
-            android:title="Mis alergias" />
+            android:title="Historia Medica" />
+
         <item
             android:id="@+id/treatment"
             android:icon="@drawable/ic_menu_send"
@@ -34,10 +31,7 @@
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
                 android:title="Fundahog contacto" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="Configuracion" />
+
         </menu>
     </item>
 

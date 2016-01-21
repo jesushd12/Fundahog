@@ -19,6 +19,7 @@ public class MainFragment extends Fragment{
     ImageButton botonTratamiento ;
     ImageButton botonNotas;
     ImageButton botonExamen;
+    ImageButton botonInformacion;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,6 +50,15 @@ public class MainFragment extends Fragment{
                 FragmentManager fm = getFragmentManager();
                 fm.beginTransaction().replace(R.id.contain_frame,new ExamenFragment()).addToBackStack( "tag" ).commit();
 
+            }
+        });
+
+        botonInformacion = (ImageButton)v.findViewById(R.id.btn_informacion);
+        botonInformacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                fm.beginTransaction().replace(R.id.contain_frame,new InformationFragment()).addToBackStack( "tag" ).commit();
             }
         });
 

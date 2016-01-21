@@ -8,7 +8,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.jesus.fundahog.LoginActivity">
+    tools:context="com.example.jesus.fundahog.LoginActivity"
+    android:background="@color/md_white_1000">
 
     <!-- Login progress -->
     <ProgressBar
@@ -32,24 +33,38 @@
 
 
 
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_action_user" />
 
-                <EditText
-                    android:id="@+id/edt_nombre"
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nombre"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:inputType="text" />
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp">
+                    <EditText
+                        android:id="@+id/edt_nombre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Nombre"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:inputType="text"
+                       />
+                </android.support.design.widget.TextInputLayout>
 
-            </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="45dp"
+                android:layout_marginRight="10dp">
 
                 <EditText
                     android:id="@+id/edt_apellido"
@@ -64,7 +79,9 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="45dp"
+                android:layout_marginRight="10dp">
 
                 <EditText
                     android:id="@+id/edt_cedula"
@@ -77,56 +94,105 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="45dp"
+                android:layout_marginRight="10dp">
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/spin_sexo"
+                    android:spinnerMode="dialog"
+                    android:layout_marginTop="5dp"
+                    android:singleLine="true"/>
+            </LinearLayout>
 
-                <EditText
-                    android:id="@+id/edt_fechaNacimiento"
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_action_calendar_month"
+                    android:tint="@color/primary_dark_material_light" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp">
+
+                    <EditText
+                        android:id="@+id/edt_fechaNacimiento"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Fecha de nacimiento"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:inputType="none"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@android:drawable/ic_menu_mylocation"
+                    android:tint="@color/primary_dark_material_light" />
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Fecha de nacimiento"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:inputType="none"
-                    android:drawableRight="@android:drawable/ic_menu_my_calendar"/>
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp">
 
-            </android.support.design.widget.TextInputLayout>
+                    <EditText
+                        android:id="@+id/edt_lugarNacimiento"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Lugar de Nacimiento"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:inputType="text" />
 
-            <android.support.design.widget.TextInputLayout
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@android:drawable/sym_action_email"
+                android:tint="@color/primary_dark_material_light" />
+
+
+        <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/edt_lugarNacimiento"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Lugar de Nacimiento"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:inputType="text" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/edt_sexo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Sexo"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:inputType="text" />
-
-            </android.support.design.widget.TextInputLayout>
-
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp">
 
                 <AutoCompleteTextView
                     android:id="@+id/emailUsuario"
@@ -138,27 +204,44 @@
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
 
 
 
-            <android.support.design.widget.TextInputLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/edt_tlfContacto"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@android:drawable/ic_menu_call"
+                    android:tint="#343434" />
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Telefono de contacto (opcion 1)"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:inputType="text" />
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp">
 
-            </android.support.design.widget.TextInputLayout>
+                    <EditText
+                        android:id="@+id/edt_tlfContacto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Telefono de contacto (opcion 1)"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:inputType="text" />
+
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="45dp"
+                android:layout_marginRight="10dp">
 
                 <EditText
                     android:id="@+id/edt_tlfContacto2"
@@ -173,7 +256,10 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="45dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp">
 
                 <EditText
                     android:id="@+id/edt_nroHistoria"
@@ -186,9 +272,12 @@
 
             </android.support.design.widget.TextInputLayout>
 
+
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="45dp"
+                android:layout_marginRight="10dp">
 
                 <EditText
                     android:id="@+id/edt_password"

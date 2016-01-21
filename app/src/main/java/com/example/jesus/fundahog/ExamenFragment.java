@@ -30,8 +30,8 @@ public class ExamenFragment extends Fragment {
     ArrayList<Examen.Hematologia> hematologias;
     ArrayList<Examen> examenArrayList = new ArrayList<Examen>();
     DataBaseManager DB;
-    ArrayList<String> tipoExamen;
     final SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -52,10 +52,7 @@ public class ExamenFragment extends Fragment {
         listView_titulos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 if(examenArrayList.get(position) instanceof Examen.Hematologia){
-                    Toast.makeText(getActivity(),"Es hematologia",Toast.LENGTH_SHORT);
-                   System.out.println("AAAAAAAAAA"+((Examen.Hematologia)examenArrayList.get(position)).getIdExamen());
                     Bundle args = new Bundle();
                     args.putInt("id",((Examen.Hematologia)examenArrayList.get(position)).getIdExamen());
                     FragmentManager fm = getFragmentManager();
@@ -63,32 +60,20 @@ public class ExamenFragment extends Fragment {
                     examenHematologico.setArguments(args);
                     fm.beginTransaction().replace(R.id.contain_frame,examenHematologico).addToBackStack( "tag" ).commit();
                 }
-
-                System.out.println("AAAAAAAAAA NO"+((Examen.Hematologia)examenArrayList.get(position)).getIdExamen());
-
-
-
-
-
             }
         });
         setHasOptionsMenu(true);
-
         return v;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.action_add) {
-
             FragmentManager fm = getFragmentManager();
             ExamenTypeFragment examenTipos = new ExamenTypeFragment();
             fm.beginTransaction().replace(R.id.contain_frame,examenTipos).addToBackStack( "tag" ).commit();
-
-
-
-
             return true;
         }
         return super.onOptionsItemSelected(item);

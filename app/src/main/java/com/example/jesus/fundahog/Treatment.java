@@ -1,5 +1,10 @@
 package com.example.jesus.fundahog;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Created by Jesus on 12/19/2015.
  */
@@ -7,14 +12,20 @@ public class Treatment {
     private int id;
     private String fecha;
     private String tipo;
+    private String hora;
+
+    SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+    Calendar c = Calendar.getInstance();
 
     public Treatment(int id, String fecha, String tipo) {
         this.id = id;
         this.fecha = fecha;
         this.tipo = tipo;
+        this.hora = "Sin definir";
     }
 
     public Treatment() {
+        this.hora = "Sin definir";
     }
 
     public int getId() {
@@ -39,5 +50,41 @@ public class Treatment {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public int  getMes(){
+        try {
+            c.setTime(formato.parse(getFecha()));
+            return c.MONTH-1;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+    public Date getDate(){
+        try {
+            return formato.parse(getFecha());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public int getAno(){
+        try {
+            c.setTime(formato.parse(getFecha()));
+            return c.YEAR;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
     }
 }

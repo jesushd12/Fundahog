@@ -2,10 +2,7 @@ package com.example.jesus.fundahog;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -103,23 +100,21 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.informacion_personal) {
-            fm.beginTransaction().replace(R.id.contain_frame,new PacientInformationFragment()).commit();
+            fm.beginTransaction().replace(R.id.contain_frame,new PacientInformationFragment()).addToBackStack( "tag" ).commit();
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.mi_medico) {
+            fm.beginTransaction().replace(R.id.contain_frame,new MedicalFragment()).addToBackStack( "tag" ).commit();
 
 
         } else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_manage) {
+            fm.beginTransaction().replace(R.id.contain_frame,new fragmentMedicalHistory()).addToBackStack( "tag" ).commit();
 
         } else if (id == R.id.nav_share) {
+            fm.beginTransaction().replace(R.id.contain_frame,new ContactFragment()).addToBackStack( "tag" ).commit();
 
-        } else if (id == R.id.nav_send) {
 
         }else if (id == R.id.treatment) {
-
-
-
             fm.beginTransaction().replace(R.id.contain_frame,new TreatmentFragment()).commit();
         }
         else if (id == R.id.home) {
@@ -130,5 +125,22 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == 2) {
+            // Make sure the request was successful
+            Intent intent = new Intent(MainActivity.this,MainActivity.class);
+            startActivity(intent);
+            if (resultCode == RESULT_OK) {
+                // The user picked a contact.
+                // The Intent's data Uri identifies which contact was selected.
+
+                // Do something with the contact here (bigger example below)
+            }
+        }
     }
 }

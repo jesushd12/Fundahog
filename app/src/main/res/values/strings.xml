@@ -19,4 +19,30 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="informacion_fundahog">
+        En el año 2004, este grupo de sobrevivientes del cáncer crearon la Fundación Hemato-oncológica Guayana,
+        o Fundahog. Esta organización nace con la misión de brindar apoyo, información y orientación a los pacientes
+        de cáncer sobre el acceso a los centros de salud pública, obtención de medicamentos y aplicación del tratamiento correcto
+        para su condición. Fundahog, como parte de su labor social, vela por el soporte emocional y psicológico de los pacientes durante
+        el proceso de aceptación de su nuevo estilo de vida, reforzando la confianza y fortaleza para luchar por un mejor futuro.
+        Fundahog forma parte de The Leukemia and Linfoma Society, de La Coalición del Linfoma y de la Alianza Latina, organismos que vinculan a diferentes organizaciones regionales
+        de personas que padecen enfermedades de la sangre. Dentro de los programas de Fundahog, las personas interesadas en colaborar podrán apadrinar a un niño, ayudando a cubrir los gastos de sus exámenes y tratamientos. De la misma forma, bajo el programa “alegría”, los interesados en colaborar podrán brindarle juegos y actividades de entretenimiento seguro a los pequeños pacientes de cáncer.
+    </string>
+    <string name="informacion_fundahog2">
+        Entre otros programas de Fundahog, destacan la “escuela para pacientes”, proyecto que ofrece herramientas de apoyo psicológico que ayudan a los pacientes a aceptar y enfrentar la situación, y “sembrando salud”, plan de concienciación sobre los exámenes preventivos a través de jornadas de salud y campañas informativas
+
+    </string>
+    <string name="contacto">
+        Para mayor información sobre Fundahog y sus programas de apoyo, ingresa en http://www.fundahog.org/, o contáctalos a través de los teléfonos 0414.867.84.44, 0286.889.06.72.
+    </string>
+    
+    <string-array name="prefijoMedico">
+        <item>Dr.</item>
+        <item>Dra.</item>
+        <item>Enfermera.</item>
+    </string-array>
+    <string-array name="sexo">
+        <item>Femenino</item>
+        <item>Masculino</item>
+    </string-array>
 </resources>

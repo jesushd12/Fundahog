@@ -47,7 +47,7 @@ public class ExamenHematologiaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_hematologia,container,false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Hematologia completa");
-        DB = new DataBaseManager(getActivity());
+         DB = new DataBaseManager(getActivity());
         fecha = (EditText)v.findViewById(R.id.edt_fechaHematologia);
         fibrinogeno = (EditText)v.findViewById(R.id.edt_fibrinogeno);
         leucocitos = (EditText)v.findViewById(R.id.edt_leucocitos);
@@ -99,11 +99,21 @@ public class ExamenHematologiaFragment extends Fragment {
 
         return v;
     }
+
+    public boolean validarCampos(){
+        return (fecha.getText().toString().equalsIgnoreCase(""));
+    }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
+        if(validarCampos())
+           return false ;
+
         if (id == R.id.action_save) {
+
             Examen.Hematologia hematologia;
             if(idExamen!=-1){
 
@@ -146,6 +156,7 @@ public class ExamenHematologiaFragment extends Fragment {
                 plaquetas.setEnabled(true);
                 vsg.setEnabled(true);
                 hcm.setEnabled(true);
+
                 return true;
             }
         if (id == R.id.action_delete) {
@@ -166,6 +177,7 @@ public class ExamenHematologiaFragment extends Fragment {
             menu.removeItem(R.id.action_edit);
             menu.removeItem(R.id.action_delete);
         }
+
 
     }
 }

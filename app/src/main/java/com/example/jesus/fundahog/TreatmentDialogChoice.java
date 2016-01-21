@@ -3,6 +3,7 @@ package com.example.jesus.fundahog;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -14,7 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.TimePicker;
 import android.widget.Toast;
+
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,6 +32,10 @@ public class TreatmentDialogChoice extends DialogFragment{
     SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
     String selection;
     DataBaseManager db;
+    Calendar dateAndTime;
+    TimePickerDialog.OnTimeSetListener t;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm a");
+
 
     @NonNull
     @Override
@@ -36,7 +43,17 @@ public class TreatmentDialogChoice extends DialogFragment{
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         final String fechaSeleccionada = getArguments().getString("fecha");
         db = new DataBaseManager(getActivity());
+        dateAndTime=Calendar.getInstance();
 
+        t = new TimePickerDialog.OnTimeSetListener() {
+            public void onTimeSet(TimePicker view, int hourOfDay,
+                                  int minute) {
+                dateAndTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                dateAndTime.set(Calendar.MINUTE, minute);
+                db.actualizarHora(fechaSeleccionada,dateFormat.format(dateAndTime.getTime()));
+
+            }
+        };
 
 
 
@@ -63,6 +80,7 @@ public class TreatmentDialogChoice extends DialogFragment{
                     Calendar c = Calendar.getInstance();
                     try {
                         c.setTime(formato.parse(fechaSeleccionada));
+
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -117,6 +135,13 @@ public class TreatmentDialogChoice extends DialogFragment{
                     }
                     if(!db.consultarFechaTratamiento(selection)){
                         db.insertarTratamiento(fechaSeleccionada,selection);
+
+                        new TimePickerDialog(getContext(),
+                                t,
+                                dateAndTime.get(Calendar.HOUR_OF_DAY),
+                                dateAndTime.get(Calendar.MINUTE),
+                                true).show();
+
                         FragmentManager fm = getFragmentManager();
                         fm.beginTransaction().replace(R.id.contain_frame,new TreatmentFragment()).commit();
                     }else{

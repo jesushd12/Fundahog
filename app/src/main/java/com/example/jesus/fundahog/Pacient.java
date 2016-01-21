@@ -1,5 +1,6 @@
 package com.example.jesus.fundahog;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -18,6 +19,9 @@ public class Pacient {
     private String tlfContacto2;
     private String nroHistoria;
     private String contrasena;
+    public HistoriaPaciente historia;
+
+    SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
 
     public Pacient(String nombre, String apellido, String cedula, Date fechaNacimiento, String lugarNacimiento, String sexo, String email, String tlfContacto1, String tlfContacto2, String nroHistoria, String contrasena) {
         this.nombre = nombre;
@@ -31,6 +35,7 @@ public class Pacient {
         this.tlfContacto2 = tlfContacto2;
         this.nroHistoria = nroHistoria;
         this.contrasena = contrasena;
+        this.historia = new HistoriaPaciente();
     }
 
     public String getNombre() {
@@ -130,4 +135,24 @@ public class Pacient {
 
         return edad;
     }
+
+    public void setHistoria(HistoriaPaciente historia){
+        this.historia = historia;
+    }
+
+    public String obtenerCondicion(){
+        return historia.getCondicion();
+    }
+
+    public String obtenerTipoSangre(){
+        return  historia.getTipoSangre();
+    }
+
+    public String obtenerEstatura(){
+        return historia.getEstatura();
+    }
+    public String obtenerPeso(){
+        return historia.getPeso();
+    }
+
 }

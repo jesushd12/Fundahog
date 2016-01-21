@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -19,6 +20,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -29,7 +31,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -76,11 +80,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     EditText tlfContactoUsuario2;
     EditText nroHistoriaUsuario;
     final SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+    DatePickerDialog fechaExamen;
+    Calendar c ;
     DatePickerDialog.OnDateSetListener d;
     Calendar calendar = Calendar.getInstance();
     private View mProgressView;
     private View mLoginFormView;
     DataBaseManager DB;
+    Spinner sexo;
 
 
     @Override
@@ -93,12 +100,28 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         nombre = (EditText)findViewById(R.id.edt_nombre);
         apellidoUsuario = (EditText)findViewById(R.id.edt_apellido);
         cedulaUsuario = (EditText)findViewById(R.id.edt_cedula);
-        sexoUsuario = (EditText)findViewById(R.id.edt_sexo);
+        //sexoUsuario = (EditText)findViewById(R.id.edt_sexo);
+        sexo = (Spinner)findViewById(R.id.spin_sexo);
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(this,R.array.sexo,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sexo.setAdapter(adapter);
+
         fechaNacimientoUsuario = (EditText)findViewById(R.id.edt_fechaNacimiento);
-        fechaNacimientoUsuario.setOnClickListener(new OnClickListener() {
+
+        fechaNacimientoUsuario.setInputType(InputType.TYPE_NULL);
+        fechaNacimientoUsuario.requestFocus();
+        fechaExamen = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                c = Calendar.getInstance();
+                c.set(year,monthOfYear,dayOfMonth);
+                fechaNacimientoUsuario.setText(formatter.format(c.getTime()));
+            }
+        },Calendar.getInstance().get(Calendar.YEAR),Calendar.getInstance().get(Calendar.MONTH),Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        fechaNacimientoUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                fechaExamen.show();
             }
         });
         lugarNacimientoUsuario = (EditText)findViewById(R.id.edt_lugarNacimiento);
@@ -137,9 +160,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View view) {
                 attemptLogin();
-                paciente = new Pacient(nombre.getText().toString(),apellidoUsuario.getText().toString(),cedulaUsuario.getText().toString(),calendar.getTime(),lugarNacimientoUsuario.getText().toString(),sexoUsuario.getText().toString(),nombreUsuario.getText().toString(),tlfContactoUsuario.getText().toString(),tlfContactoUsuario2.getText().toString(),nroHistoriaUsuario.getText().toString(),mPasswordView.getText().toString());
+                if(!validarCampos()){
+                    Toast.makeText(getApplicationContext(),"Por favor completa todos los datos",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                paciente = new Pacient(nombre.getText().toString(),apellidoUsuario.getText().toString(),cedulaUsuario.getText().toString(),c.getTime(),lugarNacimientoUsuario.getText().toString(),sexo.getSelectedItem().toString(),nombreUsuario.getText().toString(),tlfContactoUsuario.getText().toString(),tlfContactoUsuario2.getText().toString(),nroHistoriaUsuario.getText().toString(),mPasswordView.getText().toString());
 
-                DB.insertarUsuario2(paciente);
+                DB.insertarUsuario(paciente);
                 setResult(2);
                 finish();
             }
@@ -405,8 +432,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     public void update (){
         fechaNacimientoUsuario.setText(formatter.format(calendar.getTime()));
     }
-    public void setDate(){
-        new DatePickerDialog(LoginActivity.this,d,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();
+    public boolean validarCampos(){
+        if(nombre.getText().toString().equals("") ||apellidoUsuario.getText().equals(""))
+            return false;
+        if(cedulaUsuario.getText().toString().equals("") )
+            return false;
+        if(fechaNacimientoUsuario.getText().toString().equals("") || lugarNacimientoUsuario.getText().equals(""))
+            return false;
+        if(tlfContactoUsuario.getText().toString().equals("") || tlfContactoUsuario2.getText().equals(""))
+            return false;
+        if(tlfContactoUsuario.getText().toString().equals("") || tlfContactoUsuario2.getText().equals(""))
+            return false;
+        if(nombreUsuario.getText().toString().equals("") || mPasswordView.getText().equals(""))
+            return false;
+        return true;
     }
+
+
 }
 

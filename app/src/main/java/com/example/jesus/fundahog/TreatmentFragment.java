@@ -1,7 +1,9 @@
 package com.example.jesus.fundahog;
 
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,7 +15,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
@@ -33,9 +38,15 @@ import java.util.Date;
 public class TreatmentFragment extends Fragment {
     private CaldroidFragment caldroidFragment;
     private DataBaseManager DB;
+    ArrayList<Treatment> tratamientos;
+    ListView lista_tratamiento;
+    SimpleDateFormat formatoAno = new SimpleDateFormat("yyyy");
+    SimpleDateFormat formatoMes = new SimpleDateFormat("MM");
+
 
     public void setCustomResourceForDate(){
         SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+
         Calendar cal = Calendar.getInstance();
 
         try {
@@ -94,12 +105,24 @@ public class TreatmentFragment extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Tratamientos");
         //setHasOptionsMenu(true);
         DB = new DataBaseManager(getActivity());
-        ListView lista_tratamiento = (ListView)v.findViewById(R.id.listview_tratamientos);
-        ArrayList<Treatment> tratamientos = new ArrayList<Treatment>();
+        lista_tratamiento = (ListView)v.findViewById(R.id.listview_tratamientos);
+
         tratamientos = DB.pedirTratamientosCompleto();
         Collections.sort(tratamientos,new CustomComparator());
-        TreatmentAdapter treatmentAdapter = new TreatmentAdapter(getActivity(),tratamientos);
+        final TreatmentAdapter treatmentAdapter = new TreatmentAdapter(getActivity(),tratamientos);
         lista_tratamiento.setAdapter(treatmentAdapter);
+
+        lista_tratamiento.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bundle args = new Bundle();
+                args.putInt("id",tratamientos.get(position).getId());
+                FragmentManager fm = getFragmentManager();
+                TreatmentInformation treatmentInformation = new TreatmentInformation();
+                treatmentInformation.setArguments(args);
+                fm.beginTransaction().replace(R.id.contain_frame,treatmentInformation).addToBackStack( "tag" ).commit();
+            }
+        });
 
 
 
@@ -127,11 +150,52 @@ public class TreatmentFragment extends Fragment {
         t.commit();
 
         final CaldroidListener listener = new CaldroidListener() {
+
             @Override
-            public void onSelectDate(Date date, View view) {
+            public void onChangeMonth(int month, int year) {
+                super.onChangeMonth(month, year);
+
+
+                /*
+                System.out.println("mes: "+month+" year: "+year);
+                tratamientos = DB.pedirTratamientosCompleto();
+                ArrayList<Integer> posicionesABorrar = new ArrayList<>();
+                for(int i = 0; i<tratamientos.size();i++){
+                    if(( (month==Integer.parseInt(formatoMes.format(tratamientos.get(i).getDate()))) && year == Integer.parseInt(formatoAno.format(tratamientos.get(i).getDate())))  ) {
+                        System.out.println("igualito");
+                        System.out.println("mes: " + Integer.parseInt(formatoMes.format(tratamientos.get(i).getDate())) + " ano: " + Integer.parseInt(formatoAno.format(tratamientos.get(i).getDate())));
+                    }
+
+                     else{
+                     posicionesABorrar.add(i);
+                        //tratamientos.remove(i);
+                    }
+                }
+
+                for(int aux = 0; aux<posicionesABorrar.size();aux++){
+                    tratamientos.remove(posicionesABorrar.get(aux));
+                }
+                Collections.sort(tratamientos,new CustomComparator());
+                final TreatmentAdapter treatmentAdapter = new TreatmentAdapter(getActivity(),tratamientos);
+                lista_tratamiento.setAdapter(treatmentAdapter);
+                */
+
 
 
             }
+
+            @Override
+            public void onSelectDate(Date date, View view) {
+                TreatmentDialogChoice my_dialog = new TreatmentDialogChoice();
+                Bundle args = new Bundle();
+                args.putString("fecha",formatter.format(date));
+                my_dialog.setArguments(args);
+
+                my_dialog.show(getFragmentManager(),"my_dialog");
+
+            }
+
+
 
             @Override
             public void onLongClickDate(Date date, View view) {
